@@ -1,5 +1,8 @@
 {
   "name": "leman",
+  "description": "Discord Bot",
+  "repository": "https://github.com/kcchik/leman",
+  "license": "MIT",
   "scripts": {
     "start": "node bot.js"
   },
