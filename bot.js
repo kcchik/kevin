@@ -1,8 +1,8 @@
+require('dotenv').config()
+
 const Discord = require('discord.js')
 
 const client = new Discord.Client()
-
-const { prefix, token } = require('./config.json')
 
 const player = require('./player')
 
@@ -11,20 +11,19 @@ client.on('ready', () => {
 })
 
 client.on('message', (msg) => {
-  if (msg.content.charAt(0) === prefix) {
-    const args = msg.content.split(' ')
-    const cmd = args.shift().toLowerCase()
-    switch (cmd) {
-      case '!play':
-        player.play(msg, args)
+  if (msg.content.charAt(0) === '!') {
+    const args = msg.content.slice(1).content.split(/(?<=^\S+)\s/)
+    switch (args[0].toLowerCase()) {
+      case 'play':
+        player.play(msg, args[1])
         break
-      case '!pause':
+      case 'pause':
         player.pause(msg)
         break
-      case '!stop':
+      case 'stop':
         player.stop(msg)
         break
-      case '!leave':
+      case 'leave':
         player.leave(msg)
         break
       default:
@@ -34,4 +33,4 @@ client.on('message', (msg) => {
   }
 })
 
-client.login(token)
+client.login(process.env.DISCORD_API_TOKEN)

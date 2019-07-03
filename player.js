@@ -2,42 +2,38 @@ const ytdl = require('ytdl-core')
 
 const player = {}
 
-exports.play = (msg, args) => {
+const validate = (msg, callback) => {
   if (!msg.member.voiceChannel) {
     msg.channel.send('You must be in a voice channel.')
-  } else if (player.dispatcher && player.dispatcher.paused) {
-    player.dispatcher.resume()
-  } else if (args.length === 0) {
-    msg.channel.send('Nothing is playing. Try `!play <video name>`')
   } else {
-    msg.member.voiceChannel.join().then((connection) => {
-      player.dispatcher = connection.playStream(ytdl(args[0], { filter: 'audioonly' }))
-    })
+    callback()
   }
+}
+
+exports.play = (msg, url) => {
+  validate(msg, () => {
+    if (player.dispatcher && player.dispatcher.paused) {
+      player.dispatcher.resume()
+    } else if (url.trim().length === 0) {
+      msg.channel.send('Try `!play <youtube url>`')
+    } else if (player.dispatcher) {
+      msg.member.voiceChannel.join().then((connection) => {
+        player.dispatcher = connection.playStream(ytdl(url, { filter: 'audioonly' }))
+      })
+    }
+  })
 }
 
 exports.pause = (msg) => {
-  if (!msg.member.voiceChannel) {
-    msg.channel.send('You must be in a voice channel.')
-  } else {
-    player.dispatcher.pause()
-  }
+  validate(msg, () => player.dispatcher.pause())
 }
 
 exports.stop = (msg) => {
-  if (!msg.member.voiceChannel) {
-    msg.channel.send('You must be in a voice channel.')
-  } else {
-    player.dispatcher.end()
-  }
+  validate(msg, () => player.dispatcher.end())
 }
 
 exports.leave = (msg) => {
-  if (!msg.member.voiceChannel) {
-    msg.channel.send('You must be in a voice channel.')
-  } else {
-    msg.member.voiceChannel.connection.disconnect()
-  }
+  validate(msg, () => msg.member.voiceChannel.connection.disconnect())
 }
 
 exports.help = (msg) => {
