@@ -1,4 +1,5 @@
 const ytdl = require('ytdl-core')
+
 const player = {}
 
 exports.play = (msg, args) => {
@@ -6,18 +7,16 @@ exports.play = (msg, args) => {
     msg.channel.send('You must be in a voice channel.')
   } else if (player.dispatcher && player.dispatcher.paused) {
     player.dispatcher.resume()
+  } else if (args.length === 0) {
+    msg.channel.send('Nothing is playing. Try `!play <video name>`')
   } else {
-    if (args.length === 0) {
-      msg.channel.send('Nothing is playing. Try `!play <video name>`')
-    } else {
-      msg.member.voiceChannel.join().then(connection =>
-        player.dispatcher = connection.playStream(ytdl(args[0], { filter: 'audioonly' }))
-      )
-    }
+    msg.member.voiceChannel.join().then((connection) => {
+      player.dispatcher = connection.playStream(ytdl(args[0], { filter: 'audioonly' }))
+    })
   }
 }
 
-exports.pause = msg => {
+exports.pause = (msg) => {
   if (!msg.member.voiceChannel) {
     msg.channel.send('You must be in a voice channel.')
   } else {
@@ -25,7 +24,7 @@ exports.pause = msg => {
   }
 }
 
-exports.stop = msg => {
+exports.stop = (msg) => {
   if (!msg.member.voiceChannel) {
     msg.channel.send('You must be in a voice channel.')
   } else {
@@ -33,10 +32,14 @@ exports.stop = msg => {
   }
 }
 
-exports.leave = msg => {
+exports.leave = (msg) => {
   if (!msg.member.voiceChannel) {
     msg.channel.send('You must be in a voice channel.')
   } else {
     msg.member.voiceChannel.connection.disconnect()
   }
+}
+
+exports.help = (msg) => {
+  msg.channel.send('I don\'t understand')
 }
