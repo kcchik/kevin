@@ -1,7 +1,21 @@
 # Leman
 
-Leman is a tiny discord bot that can be easily deployed to Heroku. It does nothing but play YouTube audio.
+Leman is a tiny Discord bot that plays YouTube audio.
 
-## Deploying
+### Requirements
+* Node.js
 
-TODO
+### Installing
+`TODO` Instructions to create a new Discord bot
+
+Create and populate the `.env` file
+```sh
+cp .env.template .env
+```
+
+Install dependencies and start
+```sh
+yarn
+
+npm start
+```
