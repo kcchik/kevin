@@ -2,7 +2,7 @@
   "name": "leman",
   "description": "Discord Bot",
   "repository": "https://github.com/kcchik/leman",
-  "license": "MIT",
+  "license": "ISC",
   "scripts": {
     "start": "node bot.js"
   },
