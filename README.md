@@ -4,6 +4,7 @@ Leman is a tiny Discord bot that plays YouTube audio.
 
 ### Requirements
 * Node.js
+* Yarn
 * Discord
 
 ### Installing
