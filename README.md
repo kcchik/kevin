@@ -22,9 +22,12 @@ Create and populate the `.env` file
 cp .env.template .env
 ```
 
-Install dependencies and start
+Install dependencies
 ```sh
 yarn
+```
 
+### Running
+```sh
 yarn start
 ```
