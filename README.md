@@ -1,6 +1,6 @@
-# Leman
+# Kevin
 
-Leman is a Discord bot that plays music from YouTube.
+Kevin is a Discord bot that plays music from YouTube.
 
 ### Requirements
 * Node.js
